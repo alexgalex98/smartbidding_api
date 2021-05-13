@@ -1,6 +1,7 @@
 const handleSignIn=(req,res,knex,bcrypt)=>{
     const{email, password}=req.body;
     if(!email||!password){
+        console.log('email:',email,'pass',password)
         return res.status(400).json('incorrect form submission')
     }
     knex.select('email','hash').from('login')

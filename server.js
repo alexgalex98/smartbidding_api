@@ -4,6 +4,7 @@ const bodyParser=require('body-parser')
 const signin=require('./controllers/signin')
 const bcrypt=require('bcrypt-nodejs')
 const register=require('./controllers/register')
+const items=require('./controllers/items')
 
 const app=express()
 app.use(cors())
@@ -35,6 +36,10 @@ app.post('/signin',(req,res)=>{
 
 app.post('/register',(req,res)=>{
     register.handleRegister(req,res,knex,bcrypt)
+})
+
+app.get('/items',(req,res)=>{
+    items.handleItems(req,res,knex)
 })
 
 app.listen(3000,()=>{
