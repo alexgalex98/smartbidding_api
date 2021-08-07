@@ -1,4 +1,5 @@
 const handleItems = (req, res, knex) => {
+  console.log("MILL1");
   return knex
     .select()
     .from("product")

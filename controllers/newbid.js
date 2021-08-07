@@ -53,6 +53,7 @@ const handleNewBid = (req, res, knex) => {
         secondsleft: bidDuration,
         image: image,
         created_by: created_by,
+        status: "pending",
       },
       "prodname"
     )

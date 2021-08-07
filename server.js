@@ -9,6 +9,11 @@ const newbid = require("./controllers/newbid");
 const item = require("./controllers/item");
 const getBids = require("./controllers/getBids");
 const setBid = require("./controllers/bidForItem");
+const approveItem = require("./controllers/approveItem");
+const disapproveItem = require("./controllers/disapproveItem");
+const getItemsYouBidded = require("./controllers/getItemsYouBidded");
+const getItemsYouCreated = require("./controllers/getItemsYouCreated");
+const updateItem = require("./controllers/updateItem");
 const fileUpload = require("express-fileupload");
 
 const app = express();
@@ -72,6 +77,26 @@ app.post("/setBid/:user&:item", (req, res) => {
   setBid.handleBidForItem(req, res, knex);
 });
 
+app.post("/approve/:id", (req, res) => {
+  approveItem.handleApproveItem(req, res, knex);
+});
+
+app.post("/disapprove/:id", (req, res) => {
+  disapproveItem.handleDisApproveItem(req, res, knex);
+});
+
+app.get("/getItemsYouBidded/:id", (req, res) => {
+  getItemsYouBidded.handleGetItemsYouBidded(req, res, knex);
+});
+
+app.get("/getItemsYouCreated/:id", (req, res) => {
+  getItemsYouCreated.handleGetItemsYouCreated(req, res, knex);
+});
+
+app.post("/updateItem/:id", (req, res) => {
+  updateItem.handleUpdateItem(req, res, knex);
+});
+
 app.post("/upload", (req, res) => {
   if (req.files == null) {
     return res.status(400).json({ msg: "No file was uploaded" });
@@ -88,6 +113,20 @@ app.post("/upload", (req, res) => {
     });
   });
 });
+
+const func = () => {
+  console.log("a");
+  knex("product")
+    .where("secondsleft", ">", 0)
+    .decrement("secondsleft", 1)
+    .returning("*")
+    .catch((err) => {
+      // res.status(400).json(err);
+      console.log(err);
+    });
+};
+
+// setInterval(func, 1000);
 
 app.listen(3000, () => {
   console.log("app is running on port 3000");
