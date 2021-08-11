@@ -19,8 +19,13 @@ const handleBidForItem = (req, res, knex) => {
           .where("id_item", item)
           .update({ price: price })
           .returning("price")
-          .then((price) => {
-            res.json({ price });
+          .then(() => {
+            // res.json({ price });
+            console.log("UPDATE PRODUCT");
+            console.log(item, price);
+            return knex("product")
+              .where("id", item)
+              .update({ currentprice: price });
           });
         console.log("update");
       } else {
@@ -30,8 +35,11 @@ const handleBidForItem = (req, res, knex) => {
             id_item: item,
             price: price,
           })
-          .then((price) => {
-            res.json({ price });
+          .then(() => {
+            // res.json({ price });
+            return knex("product")
+              .where("id", item)
+              .update({ currentprice: price });
           });
         console.log("insert");
       }

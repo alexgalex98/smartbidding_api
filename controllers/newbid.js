@@ -54,10 +54,13 @@ const handleNewBid = (req, res, knex) => {
         image: image,
         created_by: created_by,
         status: "pending",
+        currentprice: startPrice,
+        created: new Date(),
       },
       "prodname"
     )
     .then((productName) => {
+      console.log(bidDuration);
       res.json({ productName });
     })
     .catch((err) => res.status(400).json("Unable to add into DB"));

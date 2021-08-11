@@ -14,6 +14,12 @@ const disapproveItem = require("./controllers/disapproveItem");
 const getItemsYouBidded = require("./controllers/getItemsYouBidded");
 const getItemsYouCreated = require("./controllers/getItemsYouCreated");
 const updateItem = require("./controllers/updateItem");
+const buyItem = require("./controllers/buyItem");
+const onTimeExpired = require("./controllers/onTimeExpired");
+const wonItems = require("./controllers/wonItems");
+const lastItems = require("./controllers/lastItems");
+const similarCategory = require("./controllers/similarCategory");
+const mostPopular = require("./controllers/mostPopularItems");
 const fileUpload = require("express-fileupload");
 
 const app = express();
@@ -81,6 +87,10 @@ app.post("/approve/:id", (req, res) => {
   approveItem.handleApproveItem(req, res, knex);
 });
 
+app.post("/buyItem/:user&:item", (req, res) => {
+  buyItem.handleBuyItem(req, res, knex);
+});
+
 app.post("/disapprove/:id", (req, res) => {
   disapproveItem.handleDisApproveItem(req, res, knex);
 });
@@ -95,6 +105,26 @@ app.get("/getItemsYouCreated/:id", (req, res) => {
 
 app.post("/updateItem/:id", (req, res) => {
   updateItem.handleUpdateItem(req, res, knex);
+});
+
+app.post("/onTimeExpired/:item", (req, res) => {
+  onTimeExpired.handleOnTimeExpired(req, res, knex);
+});
+
+app.get("/wonItems/:id", (req, res) => {
+  wonItems.handleWonItems(req, res, knex);
+});
+
+app.get("/lastItems", (req, res) => {
+  lastItems.handleLastItems(req, res, knex);
+});
+
+app.get("/similarCategory/:id", (req, res) => {
+  similarCategory.handleSimilarItems(req, res, knex);
+});
+
+app.get("/mostPopular", (req, res) => {
+  mostPopular.handleMostPopularItems(req, res, knex);
 });
 
 app.post("/upload", (req, res) => {
