@@ -9,9 +9,9 @@ const handleSignIn = (req, res, knex, bcrypt) => {
     .from("login")
     .where("email", "=", email)
     .then((data) => {
-      //const isValid=bcrypt.compareSync(password, data[0].hash)
-      if (password === data[0].hash) {
-        //if(isValid){
+      const isValid = bcrypt.compareSync(password, data[0].hash);
+      // if (password === data[0].hash) {
+      if (isValid) {
         return knex
           .select()
           .from("users")

@@ -6,6 +6,7 @@ const handleSimilarItems = (req, res, knex) => {
     .select()
     .from("product")
     .where({ category: subquery })
+    .where("status", "approved")
     .whereNot({ id: id })
     .then((prod) => {
       if (prod.length) {

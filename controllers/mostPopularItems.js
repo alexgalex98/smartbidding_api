@@ -35,6 +35,7 @@ const handleMostPopularItems = (req, res, knex) => {
       "product.created_by"
     )
     .where("product.secondsleft", ">", 0)
+    .where("status", "approved")
     .orderBy("count", "desc")
     .limit(6)
     .then((data) => {

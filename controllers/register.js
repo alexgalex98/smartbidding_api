@@ -8,7 +8,7 @@ const handleRegister = (req, res, knex, bcrypt) => {
     .transaction((trx) => {
       trx
         .insert({
-          hash: password,
+          hash: hash,
           email: email,
         })
         .into("login")

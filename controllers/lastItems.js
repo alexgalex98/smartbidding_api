@@ -4,6 +4,7 @@ const handleLastItems = (req, res, knex) => {
     .select()
     .from("product")
     .where("product.secondsleft", ">", 0)
+    .where("status", "approved")
     .orderBy("created", "desc")
     .limit(6)
     .then((data) => {
